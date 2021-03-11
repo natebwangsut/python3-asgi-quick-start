@@ -2,11 +2,25 @@
 # * Install python3-venv for the built-in Python3 venv module (not installed by default)
 # * Install gcc libpython3-dev to compile C Python modules
 # * Update pip to support bdist_wheel
-FROM debian:buster-slim AS build
+
+# FROM debian:buster-slim AS build
+FROM python:3.9-slim-buster AS build
+
+# Skip post installs prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Python lib
 RUN apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends --yes python3-venv gcc libpython3-dev && \
+    apt-get install --no-install-suggests --no-install-recommends --yes \
+        # gcc \
+        # python3-dev \
+        # python3-venv \
+        # libpython3-dev \
+        # SSL + TLS
+        libssl-dev \
+        && \
     python3 -m venv /venv && \
-    /venv/bin/pip install --upgrade pip
+    /venv/bin/pip install --upgrade pip poetry
 
 ################################################################################
 
@@ -19,15 +33,20 @@ FROM build AS build-venv
 ENV VIRTUAL_ENV /venv
 ENV PATH /venv/bin:$PATH
 
-COPY Pipfile /Pipfile
-COPY Pipfile.lock /Pipfile.lock
-RUN /venv/bin/pipenv lock --requirements > /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_VIRTUALENVS_PATH=/venv
+ENV POETRY_VIRTUALENVS_IN_PROJECT=/venv
+
+COPY poetry.lock    /poetry.lock
+COPY pyproject.toml /pyproject.toml
+
+RUN /venv/bin/poetry install
 
 ################################################################################
 
 # Copy the virtualenv into a distroless image
-FROM gcr.io/distroless/python3-debian10
+# TODO: Change slim to distroless image once 3.9 is ready
+FROM python:3.9-slim-buster
 
 #
 ARG VERSION

@@ -1,4 +1,4 @@
-# Python 3 Quick Start
+# Python3 ASGI Quick Start
 
 Quick start template repository for Python 3 using ASGI
 

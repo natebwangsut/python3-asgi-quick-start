@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python3-asgi-quick-start"
+version = "0.0.1"
+description = ""
+authors = ["Maintainer <maintainer@email.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+uvicorn = "^0.13.4"
+fastapi = "^0.63.0"
+pydantic = "^1.8.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
