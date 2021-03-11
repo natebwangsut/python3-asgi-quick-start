@@ -26,30 +26,39 @@ You can read more on this per the following link: [Full ASGI PDF Documentation](
 - Asynchronous
 - Performance
   - [Official Document on Performance](https://fastapi.tiangolo.com/benchmarks/)
-  - [Techempower Benchmark Comparison [Python]](https://www.techempower.com/benchmarks/#section=data-r19&hw=ph&test=fortune&l=zijzen-1r)
+  - [TechEmpower Benchmark Comparison [Python]](https://www.techempower.com/benchmarks/#section=data-r19&hw=ph&test=fortune&l=zijzen-1r)
 - Easy to use
 - Well documented
-
-### Uvicorn
-
-- Why not gunicorn as well?
-
-> Since we're running in Docker, the only process that gunicorn needed to manage is the ASGI application itself.
-
-- But gunicorn has a better threading models
-
-> The argument is unrefutable, however gunicorn comes with the significant overhead of deployment. You can read more [here](https://www.uvicorn.org/deployment/#gunicorn)
 
 ## Development
 
 ```console
-uvicorn main:app --reload
+$ gunicorn main:app -k uvicorn.workers.UvicornWorker -c uvicorn.conf.py --reload
+[YYYY-MM-DD 00:00:00 +0000] [PID] [INFO] Starting gunicorn X.X.X
+[YYYY-MM-DD 00:00:00 +0000] [PID] [INFO] Listening at: http://0.0.0.0:8000 (PID)
+[YYYY-MM-DD 00:00:00 +0000] [PID] [INFO] Using worker: uvicorn.workers.UvicornWorker
 ```
 
-Using uvicorn, the ASGI server is able to detect a change on Python code and automatically reload the server based on changes.
+Using gunicorn as process manager and uvicorn worker, the ASGI server is able to detect a change on Python code and automatically reload the server based on changes.
+
+### Dependency Management
+
+There're modern dependency management for Python
+
+#### Pip
+
+> TODO: Added content for pip
+
+#### Pipenv
+
+> TODO: Added content for pipenv
+
+#### Poetry
+
+> TODO: Added content for poetry
 
 ## Deployment
 
-For the deployment process, this repository includes 3 prototypes which are production ready. All of prototypes are based on [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless) container images.
+~~For the deployment process, this repository includes 3 prototypes which are production ready. All of prototypes are based on [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless) container images.~~
 
-Only the installation method is different between each container. Python has introduced `pipenv` which are useful for managing multiple environments. For standard installation, a normal `venv` with `pip` is provided as well.
+With introduction of Python 3.9, distroless has not yet upgrade their Python to the current stable yet (currenly at 3.7), I've used `slim-buster` as an alternative for now until the distroless registry has caught up.
