@@ -12,10 +12,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Python lib
 RUN apt-get update && \
     apt-get install --no-install-suggests --no-install-recommends --yes \
-        # gcc \
+        gcc \
         # python3-dev \
         # python3-venv \
-        # libpython3-dev \
+        libpython3-dev \
         # SSL + TLS
         libssl-dev \
         && \
@@ -56,4 +56,5 @@ COPY . /app
 
 USER 65534
 WORKDIR /app
-ENTRYPOINT ["/venv/bin/uvicorn", "main:app", "--host", "0.0.0.0"]
+# ENTRYPOINT ["/venv/bin/uvicorn", "main:app", "--host", "0.0.0.0"]
+ENTRYPOINT ["/venv/bin/gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker", "-c", "uvicorn.conf.py"]

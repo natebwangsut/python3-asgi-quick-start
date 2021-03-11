@@ -7,6 +7,9 @@ name = "pypi"
 uvicorn = "*"
 fastapi = "*"
 pydantic = "*"
+gunicorn = "*"
+httptools = "*"
+uvloop = "*"
 
 [dev-packages]
 
