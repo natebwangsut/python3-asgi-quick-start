@@ -1,3 +1,6 @@
+gunicorn
 uvicorn
+uvloop
+httptools
 fastapi
 pydantic
