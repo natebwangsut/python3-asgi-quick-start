@@ -4,3 +4,9 @@ uvloop
 httptools
 fastapi
 pydantic
+
+numpy
+pandas
+torch
+torchvision
+torchaudio
