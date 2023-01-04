@@ -4,7 +4,7 @@
 # * Update pip to support bdist_wheel
 
 # FROM debian:buster-slim AS build
-FROM python:3.9-slim-buster AS build
+FROM python:3-slim-buster AS build
 
 # Skip post installs prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -45,8 +45,7 @@ RUN /venv/bin/poetry install
 ################################################################################
 
 # Copy the virtualenv into a distroless image
-# TODO: Change slim to distroless image once 3.9 is ready
-FROM python:3.9-slim-buster
+FROM python:3-slim-buster
 
 #
 ARG VERSION

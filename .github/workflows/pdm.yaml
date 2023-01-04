@@ -1,4 +1,4 @@
-name: Build venv
+name: Build PDM
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build-venv:
+  build-pdm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,4 +19,4 @@ jobs:
         with:
           context: .
           push: false
-          file: tools/docker/venv.Dockerfile
+          file: tools/docker/pdm.Dockerfile

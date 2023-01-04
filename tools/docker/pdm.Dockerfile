@@ -20,7 +20,7 @@ RUN apt-get update && \
         libssl-dev \
         && \
     python3 -m venv /venv && \
-    /venv/bin/pip install --upgrade pip
+    /venv/bin/pip install --upgrade pip pdm
 
 ################################################################################
 
@@ -33,8 +33,11 @@ FROM build AS build-venv
 ENV VIRTUAL_ENV /venv
 ENV PATH /venv/bin:$PATH
 
-COPY requirements.txt /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
+COPY .pdm.toml      /.pdm.toml
+COPY pyproject.toml /pyproject.toml
+COPY pdm.lock       /pdm.lock
+
+RUN /venv/bin/pdm install
 
 ################################################################################
 
