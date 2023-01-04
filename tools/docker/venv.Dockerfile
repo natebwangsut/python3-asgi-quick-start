@@ -4,7 +4,7 @@
 # * Update pip to support bdist_wheel
 
 # FROM debian:buster-slim AS build
-FROM python:3-slim-buster AS build
+FROM python:3.10-slim-buster AS build
 
 # Skip post installs prompts
 ENV DEBIAN_FRONTEND=noninteractive
@@ -39,7 +39,7 @@ RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
 ################################################################################
 
 # Copy the virtualenv into a distroless image
-FROM python:3-slim-buster
+FROM python:3.10-slim-buster
 
 #
 ARG VERSION
