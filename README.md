@@ -57,6 +57,10 @@ There're modern dependency management for Python
 
 > TODO: Added content for poetry
 
+#### Uv
+
+> TODO: Added content for uv
+
 ## Deployment
 
 ~~For the deployment process, this repository includes 3 prototypes which are production ready. All of prototypes are based on [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless) container images.~~

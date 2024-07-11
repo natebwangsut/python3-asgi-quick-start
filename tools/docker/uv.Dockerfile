@@ -20,7 +20,7 @@ RUN apt-get update && \
         libssl-dev \
         && \
     python3 -m venv /venv && \
-    /venv/bin/pip install --upgrade pip
+    /venv/bin/pip install --upgrade pip uv
 
 ################################################################################
 
@@ -34,7 +34,7 @@ ENV VIRTUAL_ENV /venv
 ENV PATH /venv/bin:$PATH
 
 COPY requirements.txt /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
+RUN uv pip install -r requirements.txt
 
 ################################################################################
 
